@@ -50,6 +50,13 @@ inventory* update_product_stock(inventory* invent, char* name, int qty){
     return invent;
 }
 
+bool purchase_validity(product* item, int demand){
+    if(item->prod_stock >= demand)
+      return true;
+    else 
+      return false;
+}
+
 void print_item(product* item){
     //to use in printing inventory:
     //NOT RECEPIPT, INVENTORY VIEWING PURPOSE

@@ -61,11 +61,37 @@ void create_receipt(database* db){
     
 }
 
+receipt* find_receipt_by_id(database*db, int rec_id){
+    for (int i=0; i< db->receipt_count; i++){
+        if ((db->all_receipts[i]).receipt_number==rec_id)
+          return &(db->all_receipts[i]);
+    }
+    return NULL;
+}
+
 void print_receipt_by_id(database* db, int receipt_id){
-    printf("********************BONDA'S GENERAL STORES********************\n");
-    printf("--------------------------------------------------------------\n");
-    printf("\t\tReceipt ID: %d\t\t\n",);
+    receipt* rec = find_receipt_by_id(db,receipt_id);
+    if (rec==NULL){
+        printf("Receipt ID invalid!\n");
+        return;
+    }
 
+    printf("********************BONDA'S GENERAL STORES RECEIPT********************\n");
+    printf("----------------------------------------------------------------------\n");
+    printf("\t\t\tReceipt ID: %d\t\t\t\n",receipt_id);
+    printf("======================================================================\n");
+    printf("Code\t\t\tQty\t\t\tDescription\t\t\tPrice/$\n");
+    printf("------------------------------------------------------------\n");
+    for (int i=0;i<rec->receipt_arrays_indexer;i++){
+        product p = rec->items_bought[i];
+        printf("%d\t\t\t%d\t\t\t%s\t\t\t%.2f\n",p.prod_id,rec->qty_bought[i],p.prod_name,rec->item_values[i]);
+    }
 
+    printf("\n\n");
+    printf("------------------------------------------------------------\n");
+    printf("Date: \t\t\tTOTAL: %.2f\n",rec->total_bill);
+    customer c = *find_cust_ph(db,rec->customer_phone);
+    printf("Customer: %s %lld\n",c.name,c.phone_no);
+    printf("===================================================================\n");
 
 }

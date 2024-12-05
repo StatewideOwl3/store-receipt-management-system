@@ -1,4 +1,7 @@
 #include "inventory.h"
+#include "database.h"
+#include "point_of_sale.h"
+#include "customer.h"
 
 int main(){
     inventory* invent = (inventory*)malloc(sizeof(inventory));

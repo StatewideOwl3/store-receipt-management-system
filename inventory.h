@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef struct product{
     int prod_id;//using product_counter in inventory.c
@@ -30,6 +31,8 @@ product* find_prod_by_name(inventory* invent, char* name);
 inventory* update_product_price(inventory* invent, char* name, float new_price);
 
 inventory* update_product_stock(inventory* invent, char* name, int qty);
+
+bool purchase_validity(product* item);
 
 void print_item(product* item);
 
