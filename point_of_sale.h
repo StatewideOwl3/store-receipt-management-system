@@ -4,8 +4,7 @@
 #include <time.h>
 
 #include "inventory.h"
-#include "database.h"
-#include "customer.h"
+
 
 typedef struct receipt{
     //time
@@ -18,10 +17,5 @@ typedef struct receipt{
     long long int customer_phone;
 }receipt;
 
-void create_receipt(database* db);
-
-receipt* find_receipt_by_id(database*db, int rec_id);
-
-void print_receipt_by_id(database* db, int receipt_id); //0 indexed id ie index in db receipt array
 
 #endif

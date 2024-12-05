@@ -28,11 +28,9 @@ product* find_prod_by_id(inventory* invent, int id);
 
 product* find_prod_by_name(inventory* invent, char* name);
 
-inventory* update_product_price(inventory* invent, char* name, float new_price);
+inventory* update_product(inventory* invent, char* name, float new_price, int new_qty);
 
-inventory* update_product_stock(inventory* invent, char* name, int qty);
-
-bool purchase_validity(product* item);
+bool purchase_validity(product* item, int demand);
 
 void print_item(product* item);
 

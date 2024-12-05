@@ -38,15 +38,10 @@ product* find_prod_by_name(inventory* invent, char* name){
     return NULL;
 }
 
-inventory* update_product_price(inventory* invent, char* name, float new_price){
+inventory* update_product(inventory* invent, char* name, float new_price, int new_qty){
     product* item = find_prod_by_name(invent,name);
     item->prod_price = new_price;
-    return invent;
-}
-
-inventory* update_product_stock(inventory* invent, char* name, int qty){
-    product* item = find_prod_by_name(invent, name);
-    item->prod_stock=qty;
+    item->prod_stock=new_qty;
     return invent;
 }
 

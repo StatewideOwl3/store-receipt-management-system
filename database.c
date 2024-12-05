@@ -1,4 +1,26 @@
+#include "database.h"
+
 #include "point_of_sale.h"
+
+
+database* add_customer_to_db(database* db, char* name, long long int phone){
+    customer* new_customer = (customer*)malloc(sizeof(customer));
+    new_customer->array_indexer=0;
+    strcpy(new_customer->name,name);
+    new_customer->phone_no = phone;
+    new_customer->total_money_spent=0;
+    
+    db->all_customers[db->customer_count++] = *new_customer;
+    return db;
+}
+
+customer* find_cust_ph(database* db, long long int phone){
+    for (int i=0; i< db->customer_count; i++){
+        if (db->all_customers[i].phone_no==phone)
+          return &(db->all_customers[i]);
+    }
+    return NULL;
+}
 
 int receipt_number = 0; //datavbase array indexer
 
@@ -20,7 +42,7 @@ void create_receipt(database* db){
         if (item==NULL){
             printf("Item does not exist, try again.\n");
         }
-        else if (purchase_validity(item)==false){
+        else if (purchase_validity(item,product_qty)==false){
             printf("Invalid Quantity. Try again with a lesser quantity.\n");
         }
         else{
@@ -33,7 +55,7 @@ void create_receipt(database* db){
             
             //update inventory
             inventory* invent = &(db->store_inventory);
-            update_product_stock(invent, product_name, item->prod_stock - product_qty);
+            invent = update_product(invent, product_name, item->prod_price,item->prod_stock - product_qty);
 
             printf("Do you want to buy more products? 1/0: ");
             scanf("%d",&flag);
