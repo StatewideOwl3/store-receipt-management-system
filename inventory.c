@@ -32,7 +32,7 @@ product* find_prod_by_id(inventory* invent, int id){
 
 product* find_prod_by_name(inventory* invent, char* name){
     for (int i=0; i<invent->products_count;i++){
-        if (strcpy(invent->products_array[i].prod_name,name)==0)
+        if (strcmp(invent->products_array[i].prod_name,name)==0)
           return &(invent->products_array[i]);
     }
     return NULL;

@@ -13,4 +13,5 @@ typedef struct customer{
     float total_money_spent;
 }customer;
 
+
 #endif

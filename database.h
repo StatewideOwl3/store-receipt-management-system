@@ -25,6 +25,9 @@ database* add_customer_to_db(database* db, char* name, long long int phone);
 
 customer* find_cust_ph(database* db, long long int phone);
 
+void print_db_stats(database*db);
+
+void print_customer_detials(database*db);
 
 #endif
 

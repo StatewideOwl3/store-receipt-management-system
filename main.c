@@ -62,12 +62,38 @@ int main(){
                     scanf("%s %f %d",item_name,&new_price,&new_qty);
                     product* item = find_prod_by_name(&(db->store_inventory),item_name);
                     db->store_inventory = *(update_product(&(db->store_inventory),item_name,new_price,new_qty));
+                    break;
                 }
             }
         }
         else if (main_op_code==2){
-
+            create_receipt(db);
+        }
+        else if (main_op_code==3){
+            print_database_module();
+            int db_op_code;
+            scanf("%d",&db_op_code);
+            switch(db_op_code){
+                case 1:{
+                    print_db_stats(db);
+                    break;
+                }
+                case 2:{
+                    print_customer_detials(db);
+                    break;
+                }
+                case 3:{
+                    printf("Creating New Customer:\n");
+                    printf("Enter name and phone number: ");
+                    char cust_name[30];
+                    long long int cust_ph;
+                    scanf("%s %lld",cust_name,&cust_ph);
+                    db = add_customer_to_db(db,cust_name,cust_ph);
+                    printf("Successfully added new customer!\n");
+                }
+            }
         }
     }
+
     return 0;
 }

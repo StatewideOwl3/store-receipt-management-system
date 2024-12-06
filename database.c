@@ -69,6 +69,13 @@ void create_receipt(database* db){
     scanf("%lld",&phone);
 
     customer* cust = find_cust_ph(db,phone);
+    if (cust==NULL){
+        printf("Customer does not exist...adding customer...\n");
+        printf("Enter Customer's Name: ");
+        char new_name[30];
+        scanf("%s",new_name);
+        db = add_customer_to_db(db,new_name,phone);
+    }
 
     //update database
     db->all_receipts[new_receipt->receipt_number]=*new_receipt;
@@ -116,4 +123,29 @@ void print_receipt_by_id(database* db, int receipt_id){
     printf("Customer: %s %lld\n",c.name,c.phone_no);
     printf("===================================================================\n");
 
+}
+
+void print_db_stats(database*db){
+    printf("--------Current Database Statistics--------\n");
+    printf("Total Customers: %d\tTotal Receipts Generated: %d\n",db->customer_count,db->receipt_count);
+    float revenue=0;
+    for (int i=0;i<db->receipt_count;i++){
+        revenue+=db->all_receipts[i].total_bill;
+    }
+    printf("Total Revenue from all Receipts: %.2f\n",revenue);
+    printf("No. of Products in Inventory: %d\n",db->store_inventory.products_count);
+}
+
+void print_cust(customer* c){
+    printf("%s\t\t\t%lld\t\t\t\t%d\t\t\t\t%.2f\n",c->name,c->phone_no,c->array_indexer,c->total_money_spent);
+}
+
+void print_customer_detials(database*db){
+    printf("------------Printing Customer Details------------\n");
+    printf("Name\t\t\tPhoneNo.\t\t\tTotalPurchases\t\t\tTotalContribution\n");
+    printf("-------------------------------------------------------------------------\n");
+    for (int i=0;i<db->customer_count;i++){
+        print_cust(&(db->all_customers[i]));
+    }
+    printf("\n");
 }
